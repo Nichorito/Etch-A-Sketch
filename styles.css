@@ -1,0 +1,89 @@
+body {
+    background-color: #D7FCD4;
+    display: flex;
+    margin: 0;
+    box-sizing: border-box;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* /////////////// LEFT SIDE ///////////////////// */
+
+#leftHalf {
+    height: 100%;
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#menuFlex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#title {
+    font-size: 50px;
+    font-weight: bolder;
+    font-style: italic;
+    color: #D52941;
+}
+
+#buttonFlex {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 75%;
+}
+
+button {
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    padding: 10px 0;
+    border: 2px solid black;
+    border-radius: .25em;
+    font-weight: bold;
+}
+
+#blackButton {
+    background-color: #393e41;
+    color: whitesmoke;
+}
+
+#sliderFlex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#sizeHeader {
+    margin-bottom: 0;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+}
+
+#howBig {
+    margin-top: 2px;
+}
+
+/* /////////////// RIGHT SIDE ////////////////////// */
+#rightHalf {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#gridContainer {
+    border: 3px solid #393E41;
+    width: 75%;
+    aspect-ratio: 1/1;
+    margin-right: -10px;
+}
+
+#gridCell {
+    border: 1px solid black;
+}
