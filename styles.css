@@ -86,4 +86,5 @@ button {
 
 .gridCell {
     border: 0.25px solid rgba(0, 0, 0, 0.212);
+    background-color: rgba(0, 0, 0, 0);
 }

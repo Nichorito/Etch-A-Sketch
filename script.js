@@ -1,30 +1,65 @@
-let sliderInput = document.querySelector("#sizeSlider").value;
-console.log(sliderInput)
-let cellsPerSide = 8;
-let totalCells = cellsPerSide * cellsPerSide;
+let sliderInput = document.querySelector("#sizeSlider");
 let gridContainer = document.querySelector("#gridContainer");
+let cellsPerSide = sliderInput.value;
+let totalCells = cellsPerSide * cellsPerSide;
+
 
 //Sets the amount of columns and rows in the grid equal to the number of cells per side
+//before creating the initial grid.  Stops it from being one giant cell on load
 gridContainer.style.gridTemplateRows = `repeat(${cellsPerSide}, 1fr)`;
 gridContainer.style.gridTemplateColumns = `repeat(${cellsPerSide}, 1fr)`;
 
+CreateGrid(totalCells, cellsPerSide);
 
-let row = 1;
-let column = 1;
-for (let i = 1; i <= totalCells; i++) {
-    //Create a new gridCell
-    let gridCell = document.createElement("div");
+//Called whenever the slider input element is changed - Updates the grid
+sliderInput.addEventListener("input", function () {
+    cellsPerSide = sliderInput.value;
+    totalCells = cellsPerSide * cellsPerSide;
 
-    gridCell.classList.add("gridCell")
+    //Sets the amount of columns and rows in the grid equal to the number of cells per side
+    gridContainer.style.gridTemplateRows = `repeat(${cellsPerSide}, 1fr)`;
+    gridContainer.style.gridTemplateColumns = `repeat(${cellsPerSide}, 1fr)`;
 
-    column++;
+    //Debug Log
+    console.log("Slider Input = " + sliderInput.value);
+    console.log("There are: " + totalCells + "cells");
 
-    if (column == cellsPerSide) {
-        row++;
-        column = 1;
+    clearChildren(gridContainer);
+
+    //Updates grid 
+    CreateGrid(totalCells, cellsPerSide);
+});
+
+
+
+//Creates the initial grid and is called to update every time the slider is adjusted
+function CreateGrid(totalCells, cellsPerSide) {
+    let row = 1;
+    let column = 1;
+    for (let i = 1; i <= totalCells; i++) {
+
+        //Create a new gridCell
+        let gridCell = document.createElement("div");
+
+        gridCell.classList.add("gridCell");
+
+        column++;
+
+        if (column == cellsPerSide) {
+            row++;
+            column = 1;
+        }
+        //Adds the cells to the gridCell class
+
+        gridContainer.appendChild(gridCell);
     }
-    //Adds the cells to the gridCell class
-
-    gridContainer.appendChild(gridCell);
-
+    console.log("Grid updated to: " + cellsPerSide + " cells per side.\n");
 }
+
+//Removes all child divs from the gridContainer to prevent bloating 
+function clearChildren(element) {
+    while (element.firstChild) {
+        element.removeChild(element.firstChild);
+    }
+}
+
