@@ -1,8 +1,13 @@
 let sliderInput = document.querySelector("#sizeSlider");
 let gridContainer = document.querySelector("#gridContainer");
+let blackButton = document.querySelector("#blackButton");
+let rainbowButton = document.querySelector("#rainbowButton")
+let eraseButton = document.querySelector("#eraseButton")
+let sizeText = document.querySelector("p");
+
 let cellsPerSide = sliderInput.value;
 let totalCells = cellsPerSide * cellsPerSide;
-let sizeText = document.querySelector("p");
+let colorType = '';
 
 //Sets the amount of columns and rows in the grid equal to the number of cells per side
 //before creating the initial grid.  Stops it from being one giant cell on load
@@ -12,6 +17,50 @@ gridContainer.style.gridTemplateColumns = `repeat(${cellsPerSide}, 1fr)`;
 CreateGrid(totalCells, cellsPerSide);
 
 
+//Values are passed into the grid container mouseover event to determine how rgba changes
+//Then the grid is wiped clean
+blackButton.addEventListener('click', () => {
+    console.log("The black button was clicked");
+    colorType = 'black';
+    clearChildren(gridContainer);
+    CreateGrid(totalCells, cellsPerSide);
+
+    rainbowButton.style.backgroundColor = "whitesmoke"
+    rainbowButton.style.color = "black"
+
+    blackButton.style.backgroundColor = "#393e41";
+    blackButton.style.color = "whitesmoke"
+
+    eraseButton.style.backgroundColor = "whitesmoke";
+    eraseButton.style.color = "black"
+})
+
+rainbowButton.addEventListener('click', () => {
+    console.log("The rainbow button was clicked");
+    colorType = 'rainbow'
+    clearChildren(gridContainer);
+    CreateGrid(totalCells, cellsPerSide);
+
+    blackButton.style.backgroundColor = "whitesmoke"
+    blackButton.style.color = "black";
+
+    rainbowButton.style.backgroundColor = "#393e41";
+    rainbowButton.style.color = "whitesmoke"
+
+    eraseButton.style.backgroundColor = "whitesmoke";
+    eraseButton.style.color = "black"
+})
+
+//Eraser Function
+eraseButton.addEventListener('click', () => {
+    console.log("The erase button was clicked");
+
+    colorType = 'erase';
+    
+    eraseButton.style.backgroundColor = "#393e41";
+    eraseButton.style.color = "whitesmoke"
+})
+
  // Add a mouseover event listener to the grid container then delegate to the target gridCell
 gridContainer.addEventListener('mouseover', (event) => {
 
@@ -19,14 +68,31 @@ gridContainer.addEventListener('mouseover', (event) => {
 
         let currentColor = event.target.style.backgroundColor || getComputedStyle(event.target).backgroundColor;
 
-        // Extract the alpha value from the current color
-        let alpha = parseFloat(currentColor.match(/(\d|\.)+/g)[3]);
+        //Black color mode
+        if (colorType == 'black' || colorType == '') {
+            // Extract the alpha value from the current color
+            let alpha = parseFloat(currentColor.match(/(\d|\.)+/g)[3]);
 
-        // Increase alpha by 0.1 (10%)
-        alpha = Math.min(alpha + 0.1, 1); // Ensure alpha doesn't exceed 1
+            // Increase alpha by 0.1 (10%)
+            alpha = Math.min(alpha + 0.1, 1); // Ensure alpha doesn't exceed 1
 
-        // Update the background color with the new alpha value
-        event.target.style.backgroundColor = `rgba(0, 0, 0, ${alpha})`;
+            // Update the background color with the new alpha value
+            event.target.style.backgroundColor = `rgba(0, 0, 0, ${alpha})`;
+        }
+        else if (colorType == 'rainbow'){
+            
+            //Rainbow color mode
+            const randomBetween = (min, max) => min + Math.floor(Math.random() * (max - min + 1)); //Math.random can only generate up to 1, it cannot equal 1.
+            const r = randomBetween(0, 255);
+            const g = randomBetween(0, 255);
+            const b = randomBetween(0, 255);
+
+            //Update the background color to the new RGB
+            event.target.style.backgroundColor = `rgb(${r},${g},${b})`;
+        } 
+        else if (colorType == 'erase'){
+            event.target.style.backgroundColor = '#D7FCD4';
+        }
 
         console.log("You are currently over a cell");
         console.log("This cell's background color is now " + event.target.style.backgroundColor); 
@@ -34,7 +100,7 @@ gridContainer.addEventListener('mouseover', (event) => {
 });
 
 //Called whenever the slider input element is changed - Updates the grid
-sliderInput.addEventListener("input", function () {
+sliderInput.addEventListener("input", () => {
     cellsPerSide = sliderInput.value;
     totalCells = cellsPerSide * cellsPerSide;
     sizeText.textContent = cellsPerSide + " x " + cellsPerSide;

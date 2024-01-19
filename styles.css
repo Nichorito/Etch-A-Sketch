@@ -53,6 +53,11 @@ button {
     color: whitesmoke;
 }
 
+#rainbowButton {
+    background-color: whitesmoke;
+    color: black;
+}
+
 #sliderFlex {
     display: flex;
     flex-direction: column;
