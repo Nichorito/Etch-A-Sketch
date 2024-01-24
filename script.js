@@ -8,6 +8,7 @@ let sizeText = document.querySelector("p");
 let cellsPerSide = sliderInput.value;
 let totalCells = cellsPerSide * cellsPerSide;
 let colorType = '';
+let storeColor = '';
 
 //Sets the amount of columns and rows in the grid equal to the number of cells per side
 //before creating the initial grid.  Stops it from being one giant cell on load
@@ -37,9 +38,14 @@ blackButton.addEventListener('click', () => {
 
 rainbowButton.addEventListener('click', () => {
     console.log("The rainbow button was clicked");
+
+    if (colorType == 'erase') {return;}
+    else {
+        clearChildren(gridContainer);
+        CreateGrid(totalCells, cellsPerSide);
+        }
     colorType = 'rainbow'
-    clearChildren(gridContainer);
-    CreateGrid(totalCells, cellsPerSide);
+    
 
     blackButton.style.backgroundColor = "whitesmoke"
     blackButton.style.color = "black";
@@ -54,11 +60,19 @@ rainbowButton.addEventListener('click', () => {
 //Eraser Function
 eraseButton.addEventListener('click', () => {
     console.log("The erase button was clicked");
-
-    colorType = 'erase';
     
-    eraseButton.style.backgroundColor = "#393e41";
-    eraseButton.style.color = "whitesmoke"
+        if (colorType != 'erase') {
+        storeColor = colorType;
+        colorType = 'erase';
+        
+        eraseButton.style.backgroundColor = "#393e41";
+        eraseButton.style.color = "whitesmoke"
+        }
+        else {
+            colorType = storeColor;
+            eraseButton.style.backgroundColor = "whitesmoke";
+            eraseButton.style.color = "black"
+        }
 })
 
  // Add a mouseover event listener to the grid container then delegate to the target gridCell
