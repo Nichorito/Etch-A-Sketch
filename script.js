@@ -39,13 +39,12 @@ blackButton.addEventListener('click', () => {
 rainbowButton.addEventListener('click', () => {
     console.log("The rainbow button was clicked");
 
-    if (colorType == 'erase') {return;}
-    else {
-        clearChildren(gridContainer);
-        CreateGrid(totalCells, cellsPerSide);
-        }
+    clearChildren(gridContainer);
+    CreateGrid(totalCells, cellsPerSide);
+        
     colorType = 'rainbow'
-    
+    console.log("colorType is now: " + colorType);
+
 
     blackButton.style.backgroundColor = "whitesmoke"
     blackButton.style.color = "black";
@@ -63,8 +62,11 @@ eraseButton.addEventListener('click', () => {
     
         if (colorType != 'erase') {
         storeColor = colorType;
+
+        console.log("storeColor is now: " + storeColor +
+                    "\n colorType was previously: " + colorType )
         colorType = 'erase';
-        
+        console.log("colorType is now: " + colorType);
         eraseButton.style.backgroundColor = "#393e41";
         eraseButton.style.color = "whitesmoke"
         }
@@ -81,6 +83,8 @@ gridContainer.addEventListener('mouseover', (event) => {
     if (event.target.classList.contains("gridCell")) {
 
         let currentColor = event.target.style.backgroundColor || getComputedStyle(event.target).backgroundColor;
+
+        console.log("colorType is now: " + colorType);
 
         //Black color mode
         if (colorType == 'black' || colorType == '') {
@@ -105,7 +109,24 @@ gridContainer.addEventListener('mouseover', (event) => {
             event.target.style.backgroundColor = `rgb(${r},${g},${b})`;
         } 
         else if (colorType == 'erase'){
-            event.target.style.backgroundColor = '#D7FCD4';
+
+            console.log("storeColor is; " + storeColor)
+            if (storeColor == 'black') {
+                // Extract the alpha value from the current color
+                let alpha = parseFloat(currentColor.match(/(\d|\.)+/g)[3]);
+                let r = parseFloat(currentColor.match(/(\d|\.)+/g)[0]);
+                let g = parseFloat(currentColor.match(/(\d|\.)+/g)[1]);
+                let b = parseFloat(currentColor.match(/(\d|\.)+/g)[2]);
+
+                // Increase alpha by 0.1 (10%)
+                alpha = Math.max(alpha - 0.1, 0); // Ensure alpha doesn't go below 0
+
+                // Update the background color with the new alpha value
+                event.target.style.backgroundColor = `rgba(${r},${g},${b}, ${alpha})`;
+            }
+            else {
+                event.target.style.backgroundColor = '#D7FCD4';
+            }
         }
 
         console.log("You are currently over a cell");
