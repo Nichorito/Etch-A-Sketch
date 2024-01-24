@@ -7,7 +7,7 @@ let sizeText = document.querySelector("p");
 
 let cellsPerSide = sliderInput.value;
 let totalCells = cellsPerSide * cellsPerSide;
-let colorType = '';
+let colorType = 'black';
 let storeColor = '';
 
 //Sets the amount of columns and rows in the grid equal to the number of cells per side
