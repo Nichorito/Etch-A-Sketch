@@ -4,6 +4,7 @@ let blackButton = document.querySelector("#blackButton");
 let rainbowButton = document.querySelector("#rainbowButton");
 let blueButton = document.querySelector("#blueButton");
 let eraseButton = document.querySelector("#eraseButton");
+let clearButton = document.querySelector("#clearButton");
 let sizeText = document.querySelector("p");
 
 let cellsPerSide = sliderInput.value;
@@ -24,8 +25,9 @@ CreateGrid(totalCells, cellsPerSide);
 blackButton.addEventListener('click', () => {
     console.log("The black button was clicked");
     colorType = 'black';
-    clearChildren(gridContainer);
-    CreateGrid(totalCells, cellsPerSide);
+
+    //clearChildren(gridContainer);
+    //CreateGrid(totalCells, cellsPerSide);
 
     /////// CSS EDITS ///////
 
@@ -47,8 +49,8 @@ blackButton.addEventListener('click', () => {
 rainbowButton.addEventListener('click', () => {
     console.log("The rainbow button was clicked");
 
-    clearChildren(gridContainer);
-    CreateGrid(totalCells, cellsPerSide);
+    //clearChildren(gridContainer);
+    //CreateGrid(totalCells, cellsPerSide);
         
     colorType = 'rainbow'
     console.log("colorType is now: " + colorType);
@@ -71,8 +73,8 @@ rainbowButton.addEventListener('click', () => {
 blueButton.addEventListener('click', () => {
     console.log("The blue button was clicked!");
 
-    clearChildren(gridContainer);
-    CreateGrid(totalCells, cellsPerSide);
+    //clearChildren(gridContainer);
+    //CreateGrid(totalCells, cellsPerSide);
         
     colorType = 'blue'
     console.log("colorType is now: " + colorType);
@@ -97,20 +99,27 @@ eraseButton.addEventListener('click', () => {
     console.log("The erase button was clicked");
     
         if (colorType != 'erase') {
-        storeColor = colorType;
+            storeColor = colorType;
 
-        console.log("storeColor is now: " + storeColor +
-                    "\n colorType was previously: " + colorType )
-        colorType = 'erase';
-        console.log("colorType is now: " + colorType);
-        eraseButton.style.backgroundColor = "#393e41";
-        eraseButton.style.color = "whitesmoke"
+            colorType = 'erase';
+            console.log("colorType is now: " + colorType);
+            eraseButton.style.backgroundColor = "rgba(57, 62, 65, 1";
+            eraseButton.style.color = "whitesmoke"
         }
+
         else {
             colorType = storeColor;
             eraseButton.style.backgroundColor = "whitesmoke";
             eraseButton.style.color = "black"
         }
+})
+
+//Clear Function
+clearButton.addEventListener('click', () => {
+    console.log("The board has been cleared!");
+
+    clearChildren(gridContainer);
+    CreateGrid(totalCells, cellsPerSide);
 })
 
  // Add a mouseover event listener to the grid container then delegate to the target gridCell
@@ -157,21 +166,21 @@ gridContainer.addEventListener('mouseover', (event) => {
         else if (colorType == 'erase'){
 
             console.log("storeColor is; " + storeColor)
-            if (storeColor == 'black') {
+            if (event.backgroundColor == 'black' || event.backgroundColor == 'blue') {
                 // Extract the alpha value from the current color
                 let alpha = parseFloat(currentColor.match(/(\d|\.)+/g)[3]);
                 let r = parseFloat(currentColor.match(/(\d|\.)+/g)[0]);
                 let g = parseFloat(currentColor.match(/(\d|\.)+/g)[1]);
                 let b = parseFloat(currentColor.match(/(\d|\.)+/g)[2]);
 
-                // Increase alpha by 0.1 (10%)
+                // Decrease alpha by 0.1 (10%)
                 alpha = Math.max(alpha - 0.1, 0); // Ensure alpha doesn't go below 0
 
                 // Update the background color with the new alpha value
-                event.target.style.backgroundColor = `rgba(${r},${g},${b}, ${alpha})`;
+                event.target.style.backgroundColor = `rgba(${r},${g},${b}, ${r})`;
             }
             else {
-                event.target.style.backgroundColor = '#D7FCD4';
+                event.target.style.backgroundColor = 'rgba(215, 252, 212, 0)';
             }
         }
 
