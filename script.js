@@ -155,7 +155,7 @@ gridContainer.addEventListener('mouseover', (event) => {
             const r = randomBetween(0, 255);
             const g = randomBetween(0, 255);
             const b = randomBetween(0, 255);
-            const a = Math.random();
+            const a = Math.max(0.7, Math.random());
 
             //Update the background color to the new RGB
             event.target.style.backgroundColor = `rgb(${r},${g},${b},${a})`;
