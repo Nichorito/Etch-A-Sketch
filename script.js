@@ -136,11 +136,17 @@ gridContainer.addEventListener('mouseover', (event) => {
             // Extract the alpha value from the current color
             let alpha = parseFloat(currentColor.match(/(\d|\.)+/g)[3]);
 
-            // Increase alpha by 0.1 (10%)
-            alpha = Math.min(alpha + 0.1, 1); // Ensure alpha doesn't exceed 1
+            if (alpha < 1){
+                // Increase alpha by 0.1 (10%)
+                alpha = Math.min(alpha + 0.1, 1); // Ensure alpha doesn't exceed 1
 
-            // Update the background color with the new alpha value
-            event.target.style.backgroundColor = `rgba(0, 0, 0, ${alpha})`;
+                // Update the background color with the new alpha value
+                event.target.style.backgroundColor = `rgba(0, 0, 0, ${alpha})`;
+            } 
+            else {
+                //Change to blue if it is already max alpha
+                event.target.style.backgroundColor = `rgba(0, 0, 0, 1)`;
+            }
         }
         else if (colorType == 'rainbow'){
             
@@ -158,11 +164,18 @@ gridContainer.addEventListener('mouseover', (event) => {
             // Extract the alpha value from the current color
             let alpha = parseFloat(currentColor.match(/(\d|\.)+/g)[3]);
 
-            // Increase alpha by 0.1 (10%)
-            alpha = Math.min(alpha + 0.1, 1); // Ensure alpha doesn't exceed 1
+            if (alpha < 1){
+                // Increase alpha by 0.1 (10%)
+                alpha = Math.min(alpha + 0.1, 1); // Ensure alpha doesn't exceed 1
 
-            // Update the background color with the new alpha value
-            event.target.style.backgroundColor = `rgba(0, 0, 255, ${alpha})`;
+                // Update the background color with the new alpha value
+                event.target.style.backgroundColor = `rgba(0, 0, 255, ${alpha})`;
+            } 
+            else {
+                //Change to blue if it is already max alpha
+                event.target.style.backgroundColor = `rgba(0, 0, 255, 1)`;
+            }
+            
         }
         else if (colorType == 'erase'){
 
