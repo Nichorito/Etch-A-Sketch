@@ -149,9 +149,10 @@ gridContainer.addEventListener('mouseover', (event) => {
             const r = randomBetween(0, 255);
             const g = randomBetween(0, 255);
             const b = randomBetween(0, 255);
+            const a = Math.random();
 
             //Update the background color to the new RGB
-            event.target.style.backgroundColor = `rgb(${r},${g},${b})`;
+            event.target.style.backgroundColor = `rgb(${r},${g},${b},${a})`;
         } 
         else if (colorType == 'blue'){
             // Extract the alpha value from the current color
