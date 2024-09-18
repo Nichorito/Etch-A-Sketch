@@ -1,8 +1,9 @@
 let sliderInput = document.querySelector("#sizeSlider");
 let gridContainer = document.querySelector("#gridContainer");
 let blackButton = document.querySelector("#blackButton");
-let rainbowButton = document.querySelector("#rainbowButton")
-let eraseButton = document.querySelector("#eraseButton")
+let rainbowButton = document.querySelector("#rainbowButton");
+let blueButton = document.querySelector("#blueButton");
+let eraseButton = document.querySelector("#eraseButton");
 let sizeText = document.querySelector("p");
 
 let cellsPerSide = sliderInput.value;
@@ -26,11 +27,18 @@ blackButton.addEventListener('click', () => {
     clearChildren(gridContainer);
     CreateGrid(totalCells, cellsPerSide);
 
+    /////// CSS EDITS ///////
+
+    //Make black button highlighted
+    blackButton.style.backgroundColor = "#393e41";
+    blackButton.style.color = "whitesmoke"
+
+    //Unhighlight all other colors
     rainbowButton.style.backgroundColor = "whitesmoke"
     rainbowButton.style.color = "black"
 
-    blackButton.style.backgroundColor = "#393e41";
-    blackButton.style.color = "whitesmoke"
+    blueButton.style.backgroundColor = "whitesmoke";
+    blueButton.style.color = "black"
 
     eraseButton.style.backgroundColor = "whitesmoke";
     eraseButton.style.color = "black"
@@ -51,6 +59,34 @@ rainbowButton.addEventListener('click', () => {
 
     rainbowButton.style.backgroundColor = "#393e41";
     rainbowButton.style.color = "whitesmoke"
+
+    blueButton.style.backgroundColor = "whitesmoke";
+    blueButton.style.color = "black"
+
+    eraseButton.style.backgroundColor = "whitesmoke";
+    eraseButton.style.color = "black"
+})
+
+//Blue Button Logic
+blueButton.addEventListener('click', () => {
+    console.log("The blue button was clicked!");
+
+    clearChildren(gridContainer);
+    CreateGrid(totalCells, cellsPerSide);
+        
+    colorType = 'blue'
+    console.log("colorType is now: " + colorType);
+
+    //Update blue button style
+    blueButton.style.backgroundColor = "rgb(116, 153, 255)";
+    blueButton.style.color = "black"
+
+    //Unhighlight all other colors
+    blackButton.style.backgroundColor = "whitesmoke"
+    blackButton.style.color = "black";
+
+    rainbowButton.style.backgroundColor = "whitesmoke";
+    rainbowButton.style.color = "black";
 
     eraseButton.style.backgroundColor = "whitesmoke";
     eraseButton.style.color = "black"
@@ -87,7 +123,7 @@ gridContainer.addEventListener('mouseover', (event) => {
         console.log("colorType is now: " + colorType);
 
         //Black color mode
-        if (colorType == 'black' || colorType == '') {
+        if (colorType == 'black') {
             // Extract the alpha value from the current color
             let alpha = parseFloat(currentColor.match(/(\d|\.)+/g)[3]);
 
@@ -108,6 +144,16 @@ gridContainer.addEventListener('mouseover', (event) => {
             //Update the background color to the new RGB
             event.target.style.backgroundColor = `rgb(${r},${g},${b})`;
         } 
+        else if (colorType == 'blue'){
+            // Extract the alpha value from the current color
+            let alpha = parseFloat(currentColor.match(/(\d|\.)+/g)[3]);
+
+            // Increase alpha by 0.1 (10%)
+            alpha = Math.min(alpha + 0.1, 1); // Ensure alpha doesn't exceed 1
+
+            // Update the background color with the new alpha value
+            event.target.style.backgroundColor = `rgba(0, 0, 255, ${alpha})`;
+        }
         else if (colorType == 'erase'){
 
             console.log("storeColor is; " + storeColor)

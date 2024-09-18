@@ -58,6 +58,11 @@ button {
     color: black;
 }
 
+#blueButton {
+    background-color: whitesmoke;
+    color: black;
+}
+
 #sliderFlex {
     display: flex;
     flex-direction: column;
