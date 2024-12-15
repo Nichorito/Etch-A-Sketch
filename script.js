@@ -23,11 +23,9 @@ CreateGrid(totalCells, cellsPerSide);
 //Values are passed into the grid container mouseover event to determine how rgba changes
 //Then the grid is wiped clean
 blackButton.addEventListener('click', () => {
+
     console.log("The black button was clicked");
     colorType = 'black';
-
-    //clearChildren(gridContainer);
-    //CreateGrid(totalCells, cellsPerSide);
 
     /////// CSS EDITS ///////
 
@@ -48,13 +46,9 @@ blackButton.addEventListener('click', () => {
 
 rainbowButton.addEventListener('click', () => {
     console.log("The rainbow button was clicked");
-
-    //clearChildren(gridContainer);
-    //CreateGrid(totalCells, cellsPerSide);
         
     colorType = 'rainbow'
     console.log("colorType is now: " + colorType);
-
 
     blackButton.style.backgroundColor = "whitesmoke"
     blackButton.style.color = "black";
@@ -72,12 +66,7 @@ rainbowButton.addEventListener('click', () => {
 //Blue Button Logic
 blueButton.addEventListener('click', () => {
     console.log("The blue button was clicked!");
-
-    //clearChildren(gridContainer);
-    //CreateGrid(totalCells, cellsPerSide);
-        
-    colorType = 'blue'
-    console.log("colorType is now: " + colorType);
+    colorType = 'blue';
 
     //Update blue button style
     blueButton.style.backgroundColor = "rgb(116, 153, 255)";
